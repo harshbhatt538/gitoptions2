@@ -37,6 +37,7 @@ jobs:
       - name: Download NGINX configuration from S3
         run: |
           aws s3 cp s3://hybbuck2/nginx.conf .
+          ls
       
       - name: Transfer NGINX configuration to EC2 Instance 1
         run: |
