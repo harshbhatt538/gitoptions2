@@ -40,8 +40,12 @@ jobs:
       
       - name: Transfer NGINX configuration to EC2 Instance 1
         run: |
-          ssh -i ${{ secrets.DEPLOY_KEY }} ec2-user@3.110.181.6 "scp nginx.conf /etc/nginx/nginx.conf"
+          echo "${{ secrets.DEPLOY_KEY }}" > ec2_key.pem
+          chmod 400 ec2_key.pem
+          ssh -i ec2_key.pem ec2-user@13.232.225.115 "scp nginx.conf /etc/nginx/nginx.conf"
 
       - name: Transfer NGINX configuration to EC2 Instance 2
         run: |
-          ssh -i ${{ secrets.DEPLOY_KEY }} ec2-user@35.154.28.24 "scp nginx.conf /etc/nginx/nginx.conf"
+          echo "${{ secrets.DEPLOY_KEY }}" > ec2_key.pem
+          chmod 400 ec2_key.pem
+          ssh -i ec2_key.pem ec2-user@35.154.221.192 "scp nginx.conf /etc/nginx/nginx.conf"
