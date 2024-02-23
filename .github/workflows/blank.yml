@@ -43,10 +43,12 @@ jobs:
         run: |
           echo "${{ secrets.DEPLOY_KEY }}" > ec2_key.pem
           chmod 400 ec2_key.pem
-          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ec2-user@13.232.225.115 "scp nginx.conf /etc/nginx/nginx.conf"
-
+          scp -o StrictHostKeyChecking=no -i ec2_key.pem nginx.conf ec2-user@13.232.225.115:/home/ec2-user/nginx.conf
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ec2-user@13.232.225.115 "sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf"
+          
       - name: Transfer NGINX configuration to EC2 Instance 2
         run: |
           echo "${{ secrets.DEPLOY_KEY }}" > ec2_key.pem
           chmod 400 ec2_key.pem
-          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ec2-user@35.154.221.192 "scp nginx.conf /etc/nginx/nginx.conf"
+          scp -o StrictHostKeyChecking=no -i ec2_key.pem nginx.conf ec2-user@35.154.221.192:/home/ec2-user/nginx.conf
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ec2-user@35.154.221.192 "sudo mv /tmp/nginx.conf /etc/nginx/nginx.conf"
